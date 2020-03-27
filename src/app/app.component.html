@@ -1,0 +1,31 @@
+<audio #player id="player" src="../assets/song.mp3" (timeupdate)="handleProgress($event)" (ended)="audioEnd()" preload="metadata" (loadedmetadata)="setDuration($event)">
+</audio>
+
+<div style="margin:10%;">
+	<div class="progress" #progress (click)="updateTimeline($event)">
+		<div class="progress__filled" [style.flexBasis.%]="percentCompleted">
+		</div>
+	</div>
+	<div style="display: flex; justify-content: space-between;">
+		<span>
+			{{currentTime | minutesSeconds}}
+		</span>
+		<span>
+			- {{timeLeft | minutesSeconds}}
+		</span>
+	</div>
+	<div style="margin-top: 5%; display: flex; justify-content: space-between;">
+		<div>
+			<button (click)="play()">{{this.audioPlayFlag? 'Pause': 'Play'}}</button>
+			<button (click)="forward(false)">Backward 10s</button>
+			<button (click)="forward(true)">Forward 10s</button>
+		</div>
+
+		<div>
+			<label for="voliume">
+				Volume
+			</label>
+			<input type="range" name="volume" id="volume" (change)="volumeChange($event)" (input)="volumeChange($event)" step="0.01" min="0" max="1">
+		</div>
+	</div>
+</div>
